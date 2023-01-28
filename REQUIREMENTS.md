@@ -35,7 +35,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 #### Orders
 - id: SERIAL PRIMARY KEY
-- id of each product in the order : VARCHAR(64)
+- id of each product in the order : INTEGER 
 - quantity of each product in the order INTEGER
 - user_id: INTEGER [foreign key to users table]
 - status of order (active or complete): VARCHAR(64) 

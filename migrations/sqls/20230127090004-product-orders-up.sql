@@ -1,1 +1,6 @@
-/* Replace with your SQL commands */
+CREATE TABLE product_orders(
+    id SERIAL PRIMARY KEY,
+    quantity INTEGER,
+    product_id INTEGER REFERENCES products(id),
+    order_id INTEGER REFERENCES order(id)
+);
