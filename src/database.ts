@@ -12,19 +12,18 @@ const {
   ENV,
 } = process.env;
 
-let client;
-if (ENV === 'dev') {
-  client = new Pool({
-    database: POSTGRES_DB,
-    host: POSTGRES_HOST,
-    user: POSTGRES_USER,
-    password: POSTGRES_PASSWORD,
-  });
-}
+let client: Pool;
 
 if (ENV === 'test') {
   client = new Pool({
     database: POSTGRES_TEST_DB,
+    host: POSTGRES_HOST,
+    user: POSTGRES_USER,
+    password: POSTGRES_PASSWORD,
+  });
+} else {
+  client = new Pool({
+    database: POSTGRES_DB,
     host: POSTGRES_HOST,
     user: POSTGRES_USER,
     password: POSTGRES_PASSWORD,
