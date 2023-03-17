@@ -1,6 +1,8 @@
 import { User, UserStore } from '../models/user';
 import { Application, Request, Response } from 'express';
+import jwt from 'jsonwebtoken';
 
+const SECRET = process.env.TOKEN_SECRET as string;
 const store = new UserStore();
 
 export default function userRoutestsc(app: Application) {
@@ -9,16 +11,17 @@ export default function userRoutestsc(app: Application) {
   app.post('/users', create);
   app.delete('/user/:id', remove);
 }
+
 async function create(req: Request, res: Response): Promise<void> {
   const user: User = {
     firstname: req.body.firstname,
     lastname: req.body.lastname,
     password_digest: req.body.password,
   };
-  console.log(user);
   try {
-    const result = await store.create(user);
-    res.json(result);
+    const newUser = await store.create(user);
+    let token = jwt.sign({ user: newUser }, SECRET);
+    res.json(token);
   } catch (error) {
     res.json(error);
     res.status(400);
@@ -36,7 +39,7 @@ async function show(req: Request, res: Response): Promise<void> {
     res.status(400);
   }
 }
-
+ 
 async function index(req: Request, res: Response): Promise<void> {
   try {
     const users = await store.index();
