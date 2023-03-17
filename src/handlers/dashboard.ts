@@ -4,11 +4,13 @@ import { Request, Response, Application } from 'express';
 const store = new DashboardStore();
 
 export default function dashboardRoutes(app: Application) {
+  app.get('/test', (_req, res) => {
+    res.json({ name: 'Hello Dashboard' });
+  });
   app.get('/products/:category', productsByCat);
   app.get('/products/top-5', top5Products);
   app.get('/user/:user_id/active-orders', activeOrders);
   app.get('/user/:user_id/past-orders', completedOrders);
-
 }
 
 async function productsByCat(req: Request, res: Response): Promise<void> {

@@ -36,7 +36,7 @@ export class OrderStore {
 
   async create(o: Order): Promise<Order> {
     const sql =
-      'INSERT INTO orders COLUMNS(status, user_id) VALUES($1, $2) RETURNING *';
+      'INSERT INTO orders (status, user_id) VALUES($1, $2) RETURNING *';
     const conn = await Client.connect();
 
     try {

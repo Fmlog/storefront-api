@@ -3,7 +3,7 @@ import { Application, Request, Response } from 'express';
 
 const store = new UserStore();
 
-export default function (app: Application) {
+export default function userRoutestsc(app: Application) {
   app.get('/users', index);
   app.get('/user/:id', show);
   app.post('/users', create);
@@ -15,12 +15,14 @@ async function create(req: Request, res: Response): Promise<void> {
     lastname: req.body.lastname,
     password_digest: req.body.password,
   };
+  console.log(user);
   try {
     const result = await store.create(user);
     res.json(result);
   } catch (error) {
     res.json(error);
     res.status(400);
+    console.log(error);
   }
 }
 

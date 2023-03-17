@@ -37,7 +37,7 @@ export class ProductStore {
 
   async create(p: Product): Promise<Product> {
     const sql =
-      'INSERT INTO products COLUMNS(name, price) VALUES($1, $2) RETURNING *';
+      'INSERT INTO products (name, price) VALUES($1, $2) RETURNING *';
     const conn = await Client.connect();
 
     try {
