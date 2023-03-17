@@ -20,13 +20,13 @@ export class OrderStore {
     }
   }
 
-  async show(id: string): Promise<Order> {
-    const sql = 'SELECT * FROM orders WHERE id=$1';
+  async show(id: string): Promise<Order[]> {
+    const sql = 'SELECT * FROM orders INNER JOIN product_orders on orders.id=product_orders.order_id WHERE order_id=$1';
     const conn = await Client.connect();
 
     try {
       const result = await conn.query(sql, [id]);
-      const order = result.rows[0];
+      const order = result.rows;
       conn.release();
       return order;
     } catch (error) {
@@ -69,7 +69,7 @@ export class OrderStore {
     orderId: string
   ): Promise<Order> {
     const sql =
-      'INSERT INTO product_orders (quantity, order_id, product_id) VALUES ($1, $2, $3)';
+      'INSERT INTO product_orders (quantity, order_id, product_id) VALUES ($1, $2, $3) RETURNING *';
     const conn = await Client.connect();
 
     try {

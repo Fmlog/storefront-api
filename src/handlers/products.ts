@@ -1,15 +1,14 @@
 import { Product, ProductStore } from '../models/product';
-import { Response, Request, Application, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
+import { Response, Request, Application } from 'express';
+import { verifyToken } from './authentication';
 
-const SECRET = process.env.TOKEN_SECRET as string;
 const store = new ProductStore();
 
 export default function productRoutes(app: Application) {
   app.get('/products', index);
   app.get('/product/:id', show);
-  app.post('/products', create);
-  app.delete('/product/:id', remove);
+  app.post('/products', verifyToken, create);
+  app.delete('/product/:id', verifyToken, remove);
 }
 
 async function index(_req: Request, res: Response): Promise<void> {
@@ -17,8 +16,7 @@ async function index(_req: Request, res: Response): Promise<void> {
     const products = await store.index();
     res.json(products);
   } catch (error) {
-    res.json(error);
-    res.status(400);
+    res.status(400).json(error);
   }
 }
 
@@ -28,8 +26,7 @@ async function show(req: Request, res: Response): Promise<void> {
     const product = await store.show(id);
     res.json(product);
   } catch (error) {
-    res.json(error);
-    res.status(400);
+    res.status(400).json(error);
   }
 }
 
@@ -43,8 +40,7 @@ async function create(req: Request, res: Response): Promise<void> {
     const result = await store.create(product);
     res.json(result);
   } catch (error) {
-    res.json(error);
-    res.status(400);
+    res.status(400).json(error);
   }
 }
 
@@ -54,19 +50,6 @@ async function remove(req: Request, res: Response): Promise<void> {
     const product = await store.delete(id);
     res.json(product);
   } catch (error) {
-    res.json(error);
-    res.status(400);
-  }
-}
-
-async function verifyToken(req: Request, res: Response, next: NextFunction) {
-  try {
-    const authorizationHeader = req.headers.authorization as string;
-    const token = authorizationHeader?.split(' ')[1];
-    const decoded = jwt.verify(token, SECRET);
-    next();
-  } catch (error) {
-    res.status(401);
-    res.json(error);
+    res.status(400).json(error);
   }
 }
