@@ -34,7 +34,8 @@ export class OrderStore {
   }
 
   async showDetails(id: number): Promise<Order[]> {
-    const sql = 'SELECT * FROM orders INNER JOIN product_orders on orders.id=product_orders.order_id WHERE order_id=$1';
+    const sql =
+      'SELECT * FROM orders INNER JOIN product_orders on orders.id=product_orders.order_id WHERE order_id=$1';
     const conn = await Client.connect();
 
     try {
@@ -80,7 +81,12 @@ export class OrderStore {
     quantity: number,
     productId: number,
     orderId: number
-  ): Promise<Order> {
+  ): Promise<{
+    id: number;
+    quantity: number;
+    product_id: number;
+    order_id: number;
+  }> {
     const sql =
       'INSERT INTO product_orders (quantity, order_id, product_id) VALUES ($1, $2, $3) RETURNING *';
     const conn = await Client.connect();

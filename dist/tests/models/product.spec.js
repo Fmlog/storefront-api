@@ -9,19 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const product_1 = require("../models/product");
-const user_1 = require("../models/user");
+const product_1 = require("../../models/product");
 const store = new product_1.ProductStore();
-const userStore = new user_1.UserStore();
 describe('Product Model', function () {
     beforeAll(function () {
         return __awaiter(this, void 0, void 0, function* () {
-            const u = {
-                firstname: 'test',
-                lastname: 'tester',
-                password_digest: 'test123',
-            };
-            yield userStore.create(u);
             const p = {
                 name: 'Iphone 14 pro',
                 price: 1200,
@@ -32,32 +24,33 @@ describe('Product Model', function () {
     });
     afterAll(function () {
         return __awaiter(this, void 0, void 0, function* () {
+            yield store.delete(2);
         });
     });
-    it('Shows all products', function () {
+    it('Return all products', function () {
         return __awaiter(this, void 0, void 0, function* () {
             const products = yield store.index();
             expect(products).toEqual([
-                { id: 1, name: 'Iphone 14 pro', price: 1200, category: 'mobile phones' },
+                { id: 2, name: 'Iphone 14 pro', price: 1200, category: 'mobile phones' },
             ]);
         });
     });
-    it('Shows product with given id', function () {
+    it('Return product with given id', function () {
         return __awaiter(this, void 0, void 0, function* () {
-            const product = yield store.show(1);
+            const product = yield store.show(2);
             expect(product).toEqual({
-                id: 1,
+                id: 2,
                 name: 'Iphone 14 pro',
                 price: 1200,
                 category: 'mobile phones',
             });
         });
     });
-    it('Deletes product', function () {
+    it('Deletes product with given id', function () {
         return __awaiter(this, void 0, void 0, function* () {
-            const product = yield store.delete(1);
+            const product = yield store.delete(2);
             expect(product).toEqual({
-                id: 1,
+                id: 2,
                 name: 'Iphone 14 pro',
                 price: 1200,
                 category: 'mobile phones',
@@ -73,7 +66,7 @@ describe('Product Model', function () {
             };
             const product = yield store.create(p);
             expect(product).toEqual({
-                id: 2,
+                id: 3,
                 name: 'Samsung S23 Ultra',
                 price: 1300,
                 category: 'mobile phone',
