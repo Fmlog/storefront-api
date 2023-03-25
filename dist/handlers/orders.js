@@ -22,7 +22,7 @@ function orderRoutes(app) {
 exports.default = orderRoutes;
 function show(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const id = req.params.id;
+        const id = parseInt(req.params.id);
         try {
             const order = yield store.show(id);
             res.json(order);
@@ -60,7 +60,7 @@ function create(req, res) {
 }
 function remove(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const id = req.params.id;
+        const id = parseInt(req.params.id);
         try {
             const order = yield store.delete(id);
             res.json(order);
@@ -73,7 +73,7 @@ function remove(req, res) {
 function addProduct(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const result = yield store.addProduct(req.body.quantity, req.body.product_id, req.params.id);
+            const result = yield store.addProduct(req.body.quantity, req.body.product_id, parseInt(req.params.id));
             res.json(result);
         }
         catch (error) {

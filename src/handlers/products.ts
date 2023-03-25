@@ -21,7 +21,7 @@ async function index(_req: Request, res: Response): Promise<void> {
 }
 
 async function show(req: Request, res: Response): Promise<void> {
-  const id = req.params.id;
+  const id = parseInt(req.params.id);
   try {
     const product = await store.show(id);
     res.json(product);
@@ -45,7 +45,7 @@ async function create(req: Request, res: Response): Promise<void> {
 }
 
 async function remove(req: Request, res: Response): Promise<void> {
-  const id = req.params.id;
+  const id = parseInt(req.params.id);
   try {
     const product = await store.delete(id);
     res.json(product);

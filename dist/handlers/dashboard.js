@@ -44,7 +44,7 @@ function top5Products(_req, res) {
 }
 function activeOrders(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const user_id = req.params.id;
+        const user_id = parseInt(req.params.id);
         try {
             const orders = yield store.activeOrders(user_id);
             res.json(orders);
@@ -56,7 +56,7 @@ function activeOrders(req, res) {
 }
 function completedOrders(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const user_id = req.params.id;
+        const user_id = parseInt(req.params.id);
         try {
             const orders = yield store.completedOrders(user_id);
             res.json(orders);

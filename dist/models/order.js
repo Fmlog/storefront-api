@@ -31,6 +31,21 @@ class OrderStore {
     }
     show(id) {
         return __awaiter(this, void 0, void 0, function* () {
+            const sql = 'SELECT * FROM orders WHERE id=$1';
+            const conn = yield database_1.default.connect();
+            try {
+                const result = yield conn.query(sql, [id]);
+                const order = result.rows[0];
+                conn.release();
+                return order;
+            }
+            catch (error) {
+                throw new Error('Query Failed' + error);
+            }
+        });
+    }
+    showDetails(id) {
+        return __awaiter(this, void 0, void 0, function* () {
             const sql = 'SELECT * FROM orders INNER JOIN product_orders on orders.id=product_orders.order_id WHERE order_id=$1';
             const conn = yield database_1.default.connect();
             try {

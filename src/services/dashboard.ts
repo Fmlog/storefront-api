@@ -3,7 +3,7 @@ import { Order } from '../models/order';
 import { Product } from '../models/product';
 
 export class DashboardStore {
-  async activeOrders(user_id: string): Promise<Order[]> {
+  async activeOrders(user_id: number): Promise<Order[]> {
     const sql = 'SELECT * FROM orders WHERE user_id=$1 AND status="ACTIVE"';
     try {
       const conn = await Client.connect();
@@ -14,7 +14,7 @@ export class DashboardStore {
     }
   }
 
-  async completedOrders(user_id: string): Promise<Order[]> {
+  async completedOrders(user_id: number): Promise<Order[]> {
     const sql = 'SELECT * FROM orders WHERE user_id=$1 AND status="COMPLETE"';
     try {
       const conn = await Client.connect();

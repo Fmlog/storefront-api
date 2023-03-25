@@ -31,7 +31,7 @@ async function top5Products(_req: Request, res: Response): Promise<void> {
 }
 
 async function activeOrders(req: Request, res: Response): Promise<void> {
-  const user_id = req.params.id;
+  const user_id = parseInt(req.params.id);
   try {
     const orders = await store.activeOrders(user_id);
     res.json(orders);
@@ -41,7 +41,7 @@ async function activeOrders(req: Request, res: Response): Promise<void> {
 }
 
 async function completedOrders(req: Request, res: Response): Promise<void> {
-  const user_id = req.params.id;
+  const user_id = parseInt(req.params.id);
   try {
     const orders = await store.completedOrders(user_id);
     res.json(orders);

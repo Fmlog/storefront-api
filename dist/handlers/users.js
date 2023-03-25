@@ -43,7 +43,7 @@ function create(req, res) {
 }
 function show(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const id = req.params.id;
+        const id = parseInt(req.params.id);
         try {
             const user = yield store.show(id);
             res.json(user);
@@ -66,7 +66,7 @@ function index(req, res) {
 }
 function remove(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const id = req.params.id;
+        const id = parseInt(req.params.id);
         try {
             const user = yield store.delete(id);
             res.json(user);

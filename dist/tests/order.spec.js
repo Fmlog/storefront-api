@@ -14,28 +14,48 @@ const user_1 = require("../models/user");
 const store = new order_1.OrderStore();
 const userStore = new user_1.UserStore();
 describe('Orders Model', function () {
-    return __awaiter(this, void 0, void 0, function* () {
-        beforeAll(function () {
-            return __awaiter(this, void 0, void 0, function* () {
-                const u = {
-                    firstname: 'test',
-                    lastname: 'tester',
-                    password_digest: 'test123',
-                };
-                const user = yield userStore.create(u);
-                console.log(user);
-            });
+    beforeAll(function () {
+        return __awaiter(this, void 0, void 0, function* () {
+            const u = {
+                firstname: 'test',
+                lastname: 'tester',
+                password_digest: 'test123',
+            };
+            yield userStore.create(u);
+            const o = {
+                status: 'ACTIVE',
+                user_id: 1,
+            };
+            const mockOrder = { id: 1, status: 'ACTIVE', user_id: 1 };
+            yield store.create(o);
         });
-        it('Creates new order', function () {
-            return __awaiter(this, void 0, void 0, function* () {
-                const o = {
-                    status: 'ACTIVE',
-                    user_id: '1',
-                };
-                const mockOrder = { id: '1', status: 'ACTIVE', user_id: '1' };
-                const order = yield store.create(o);
-                expect(order).toBe(mockOrder);
-            });
+    });
+    it('Shows all order', function () {
+        return __awaiter(this, void 0, void 0, function* () {
+            const orders = yield store.index();
+            expect(orders).toEqual([{ id: 1, status: 'ACTIVE', user_id: 1 }]);
+        });
+    });
+    it('Shows order with given id', function () {
+        return __awaiter(this, void 0, void 0, function* () {
+            const order = yield store.show(1);
+            expect(order).toEqual({ id: 1, status: 'ACTIVE', user_id: 1 });
+        });
+    });
+    it('Deletes order', function () {
+        return __awaiter(this, void 0, void 0, function* () {
+            const order = yield store.delete(1);
+            expect(order).toEqual({ id: 1, status: 'ACTIVE', user_id: 1 });
+        });
+    });
+    it('Creates new order', function () {
+        return __awaiter(this, void 0, void 0, function* () {
+            const o = {
+                status: 'ACTIVE',
+                user_id: 1,
+            };
+            const order = yield store.create(o);
+            expect(order).toEqual({ id: 1, status: 'ACTIVE', user_id: 1 });
         });
     });
 });

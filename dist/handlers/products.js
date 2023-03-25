@@ -32,7 +32,7 @@ function index(_req, res) {
 }
 function show(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const id = req.params.id;
+        const id = parseInt(req.params.id);
         try {
             const product = yield store.show(id);
             res.json(product);
@@ -60,7 +60,7 @@ function create(req, res) {
 }
 function remove(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const id = req.params.id;
+        const id = parseInt(req.params.id);
         try {
             const product = yield store.delete(id);
             res.json(product);

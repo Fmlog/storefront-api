@@ -13,7 +13,7 @@ export default function orderRoutes(app: Application) {
 }
 
 async function show(req: Request, res: Response) {
-  const id = req.params.id;
+  const id = parseInt(req.params.id);
   try {
     const order = await store.show(id);
     res.json(order);
@@ -45,7 +45,7 @@ async function create(req: Request, res: Response) {
 }
 
 async function remove(req: Request, res: Response) {
-  const id = req.params.id;
+  const id = parseInt(req.params.id);
   try {
     const order = await store.delete(id);
     res.json(order);
@@ -59,7 +59,7 @@ async function addProduct(req: Request, res: Response) {
     const result = await store.addProduct(
       req.body.quantity,
       req.body.product_id,
-      req.params.id
+      parseInt(req.params.id)
     );
     res.json(result);
   } catch (error) {

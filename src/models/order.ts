@@ -1,9 +1,9 @@
 import Client from '../database';
 
 export type Order = {
-  id?: string;
+  id?: number;
   status: string;
-  user_id: string;
+  user_id: number;
 };
 
 export class OrderStore {
@@ -19,8 +19,21 @@ export class OrderStore {
       throw new Error('Query Failed' + error);
     }
   }
+  async show(id: number): Promise<Order> {
+    const sql = 'SELECT * FROM orders WHERE id=$1';
+    const conn = await Client.connect();
 
-  async show(id: string): Promise<Order[]> {
+    try {
+      const result = await conn.query(sql, [id]);
+      const order = result.rows[0];
+      conn.release();
+      return order;
+    } catch (error) {
+      throw new Error('Query Failed' + error);
+    }
+  }
+
+  async showDetails(id: number): Promise<Order[]> {
     const sql = 'SELECT * FROM orders INNER JOIN product_orders on orders.id=product_orders.order_id WHERE order_id=$1';
     const conn = await Client.connect();
 
@@ -49,7 +62,7 @@ export class OrderStore {
     }
   }
 
-  async delete(id: string) {
+  async delete(id: number) {
     const sql = 'DELETE FROM orders WHERE id=$1 RETURNING *';
     const conn = await Client.connect();
 
@@ -65,8 +78,8 @@ export class OrderStore {
 
   async addProduct(
     quantity: number,
-    productId: string,
-    orderId: string
+    productId: number,
+    orderId: number
   ): Promise<Order> {
     const sql =
       'INSERT INTO product_orders (quantity, order_id, product_id) VALUES ($1, $2, $3) RETURNING *';
