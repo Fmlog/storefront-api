@@ -5,7 +5,7 @@ import { verifyToken } from './authentication';
 const store = new OrderStore();
 
 export default function orderRoutes(app: Application) {
-  app.get('/orders', index);
+  app.get('/orders', verifyToken, index);
   app.get('/order/:id', verifyToken, show);
   app.post('/orders', verifyToken, create);
   app.post('/order/:id', verifyToken, addProduct);
@@ -18,7 +18,7 @@ async function show(req: Request, res: Response) {
     const order = await store.show(id);
     res.json(order);
   } catch (error) {
-    res.status(400).json(error);
+    res.status(400).json({ error: 'Something went wrong ' + error });
   }
 }
 
@@ -27,7 +27,7 @@ async function index(req: Request, res: Response) {
     const orders = await store.index();
     res.json(orders);
   } catch (error) {
-    res.status(400).json(error);
+    res.status(400).json({ error: 'Something went wrong ' + error });
   }
 }
 
@@ -40,7 +40,7 @@ async function create(req: Request, res: Response) {
     const result = await store.create(order);
     res.json(result);
   } catch (error) {
-    res.status(400).json(error);
+    res.status(400).json({ error: 'Something went wrong ' + error });
   }
 }
 
@@ -50,7 +50,7 @@ async function remove(req: Request, res: Response) {
     const order = await store.delete(id);
     res.json(order);
   } catch (error) {
-    res.status(400).json(error);
+    res.status(400).json({ error: 'Something went wrong ' + error });
   }
 }
 
@@ -63,6 +63,6 @@ async function addProduct(req: Request, res: Response) {
     );
     res.json(result);
   } catch (error) {
-    res.status(400).json(error);
+    res.status(400).json({ error: 'Something went wrong ' + error });
   }
 }

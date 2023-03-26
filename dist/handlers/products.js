@@ -26,7 +26,7 @@ function index(_req, res) {
             res.json(products);
         }
         catch (error) {
-            res.status(400).json(error);
+            res.status(400).json({ error: 'Something went wrong ' + error });
         }
     });
 }
@@ -38,7 +38,7 @@ function show(req, res) {
             res.json(product);
         }
         catch (error) {
-            res.status(400).json(error);
+            res.status(400).json({ error: 'Something went wrong ' + error });
         }
     });
 }
@@ -54,7 +54,7 @@ function create(req, res) {
             res.json(result);
         }
         catch (error) {
-            res.status(400).json(error);
+            res.status(400).json({ error: 'Something went wrong ' + error });
         }
     });
 }
@@ -66,7 +66,7 @@ function remove(req, res) {
             res.json(product);
         }
         catch (error) {
-            res.status(400).json(error);
+            res.status(400).json({ error: 'Something went wrong ' + error });
         }
     });
 }

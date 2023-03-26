@@ -17,7 +17,7 @@ async function productsByCat(req: Request, res: Response): Promise<void> {
     const products = await store.productsByCat(category);
     res.json(products);
   } catch (error) {
-    res.status(400).json(error);
+    res.status(400).json({ error: 'Something went wrong ' + error });
   }
 }
 
@@ -26,7 +26,7 @@ async function top5Products(_req: Request, res: Response): Promise<void> {
     const products = await store.top5Products();
     res.json(products);
   } catch (error) {
-    res.status(400).json(error);
+    res.status(400).json({ error: 'Something went wrong ' + error });
   }
 }
 
@@ -36,7 +36,7 @@ async function activeOrders(req: Request, res: Response): Promise<void> {
     const orders = await store.activeOrders(user_id);
     res.json(orders);
   } catch (error) {
-    res.status(400).json(error);
+    res.status(400).json({ error: 'Something went wrong ' + error });
   }
 }
 
@@ -46,6 +46,6 @@ async function completedOrders(req: Request, res: Response): Promise<void> {
     const orders = await store.completedOrders(user_id);
     res.json(orders);
   } catch (error) {
-    res.status(400).json(error);
+    res.status(400).json({ error: 'Something went wrong ' + error });
   }
 }

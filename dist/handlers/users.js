@@ -14,14 +14,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const user_1 = require("../models/user");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const authentication_1 = require("./authentication");
 const SECRET = process.env.TOKEN_SECRET;
 const store = new user_1.UserStore();
 function userRoutestsc(app) {
-    app.get('/users', index);
-    app.get('/user/:id', show);
+    app.get('/users', authentication_1.verifyToken, index);
+    app.get('/user/:id', authentication_1.verifyToken, show);
     app.post('/users', create);
-    app.delete('/user/:id', remove);
-    app.post('/login', login);
+    app.delete('/user/:id', authentication_1.verifyToken, remove);
+    app.post('/login', authentication_1.verifyToken, login);
 }
 exports.default = userRoutestsc;
 function create(req, res) {
@@ -34,10 +35,10 @@ function create(req, res) {
         try {
             const newUser = yield store.create(user);
             const token = jsonwebtoken_1.default.sign({ user: newUser }, SECRET);
-            res.json(token);
+            res.json(Object.assign(Object.assign({}, newUser), { token: token }));
         }
         catch (error) {
-            res.status(400).json(error);
+            res.status(400).json({ error: 'Something went wrong ' + error });
         }
     });
 }
@@ -49,7 +50,7 @@ function show(req, res) {
             res.json(user);
         }
         catch (error) {
-            res.status(400).json(error);
+            res.status(400).json({ error: 'Something went wrong ' + error });
         }
     });
 }
@@ -60,7 +61,7 @@ function index(req, res) {
             res.json(users);
         }
         catch (error) {
-            res.status(400).json(error);
+            res.status(400).json({ error: 'Something went wrong ' + error });
         }
     });
 }
@@ -72,7 +73,7 @@ function remove(req, res) {
             res.json(user);
         }
         catch (error) {
-            res.status(400).json(error);
+            res.status(400).json({ error: 'Something went wrong ' + error });
         }
     });
 }
@@ -83,11 +84,16 @@ function login(req, res) {
         const password = req.body.password;
         try {
             const user = yield store.authenticate(firstname, lastname, password);
-            const token = jsonwebtoken_1.default.sign({ user: user }, SECRET);
-            res.json(token);
+            if (user) {
+                const token = jsonwebtoken_1.default.sign({ user: user }, SECRET);
+                res.json(Object.assign(Object.assign({}, user), { token: token }));
+            }
+            else {
+                res.status(400).json({ error: 'User does not exist' });
+            }
         }
         catch (error) {
-            res.status(400).json(error);
+            res.status(400).json({ error: 'Something went wrong ' + error });
         }
     });
 }

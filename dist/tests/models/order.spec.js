@@ -34,44 +34,45 @@ describe('Orders Model', function () {
                 price: 1200,
                 category: 'mobile phones',
             };
-            yield productStore.create(p);
+            const prod = yield productStore.create(p);
+            console.log(prod);
         });
     });
     afterAll(function () {
         return __awaiter(this, void 0, void 0, function* () {
             yield userStore.delete(1);
             yield productStore.delete(1);
-            yield store.delete(1);
             yield store.delete(2);
+            yield store.delete(3);
         });
     });
     it('Adds a product to an order', function () {
         return __awaiter(this, void 0, void 0, function* () {
-            const product_order = yield store.addProduct(10, 1, 1);
+            const product_order = yield store.addProduct(10, 1, 2);
             expect(product_order).toEqual({
                 id: 1,
                 quantity: 10,
                 product_id: 1,
-                order_id: 1,
+                order_id: 2,
             });
         });
     });
     it('Returns all orders', function () {
         return __awaiter(this, void 0, void 0, function* () {
             const orders = yield store.index();
-            expect(orders).toEqual([{ id: 1, status: 'ACTIVE', user_id: 1 }]);
+            expect(orders).toEqual([{ id: 2, status: 'ACTIVE', user_id: 2 }]);
         });
     });
     it('Return orders with given id', function () {
         return __awaiter(this, void 0, void 0, function* () {
             const order = yield store.show(1);
-            expect(order).toEqual({ id: 1, status: 'ACTIVE', user_id: 1 });
+            expect(order).toEqual({ id: 2, status: 'ACTIVE', user_id: 2 });
         });
     });
     it('Deletes order with given id', function () {
         return __awaiter(this, void 0, void 0, function* () {
             const order = yield store.delete(1);
-            expect(order).toEqual({ id: 1, status: 'ACTIVE', user_id: 1 });
+            expect(order).toEqual({ id: 2, status: 'ACTIVE', user_id: 2 });
         });
     });
     it('Creates new order', function () {
@@ -81,7 +82,7 @@ describe('Orders Model', function () {
                 user_id: 1,
             };
             const order = yield store.create(o);
-            expect(order).toEqual({ id: 2, status: 'ACTIVE', user_id: 1 });
+            expect(order).toEqual({ id: 3, status: 'ACTIVE', user_id: 2 });
         });
     });
 });

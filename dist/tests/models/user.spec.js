@@ -24,6 +24,7 @@ describe('User Model', function () {
     });
     afterAll(function () {
         return __awaiter(this, void 0, void 0, function* () {
+            yield store.delete(2);
             yield store.delete(3);
         });
     });

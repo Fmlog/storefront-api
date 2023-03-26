@@ -27,7 +27,7 @@ function productsByCat(req, res) {
             res.json(products);
         }
         catch (error) {
-            res.status(400).json(error);
+            res.status(400).json({ error: 'Something went wrong ' + error });
         }
     });
 }
@@ -38,7 +38,7 @@ function top5Products(_req, res) {
             res.json(products);
         }
         catch (error) {
-            res.status(400).json(error);
+            res.status(400).json({ error: 'Something went wrong ' + error });
         }
     });
 }
@@ -50,7 +50,7 @@ function activeOrders(req, res) {
             res.json(orders);
         }
         catch (error) {
-            res.status(400).json(error);
+            res.status(400).json({ error: 'Something went wrong ' + error });
         }
     });
 }
@@ -62,7 +62,7 @@ function completedOrders(req, res) {
             res.json(orders);
         }
         catch (error) {
-            res.status(400).json(error);
+            res.status(400).json({ error: 'Something went wrong ' + error });
         }
     });
 }

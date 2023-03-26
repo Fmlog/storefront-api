@@ -16,7 +16,7 @@ async function index(_req: Request, res: Response): Promise<void> {
     const products = await store.index();
     res.json(products);
   } catch (error) {
-    res.status(400).json(error);
+    res.status(400).json({ error: 'Something went wrong ' + error });
   }
 }
 
@@ -26,7 +26,7 @@ async function show(req: Request, res: Response): Promise<void> {
     const product = await store.show(id);
     res.json(product);
   } catch (error) {
-    res.status(400).json(error);
+    res.status(400).json({ error: 'Something went wrong ' + error });
   }
 }
 
@@ -40,7 +40,7 @@ async function create(req: Request, res: Response): Promise<void> {
     const result = await store.create(product);
     res.json(result);
   } catch (error) {
-    res.status(400).json(error);
+    res.status(400).json({ error: 'Something went wrong ' + error });
   }
 }
 
@@ -50,6 +50,6 @@ async function remove(req: Request, res: Response): Promise<void> {
     const product = await store.delete(id);
     res.json(product);
   } catch (error) {
-    res.status(400).json(error);
+    res.status(400).json({ error: 'Something went wrong ' + error });
   }
 }

@@ -29,7 +29,7 @@ class UserStore {
                 return users;
             }
             catch (error) {
-                throw new Error('Query Failed' + error);
+                throw new Error('Query Failed ' + error);
             }
         });
     }
@@ -44,7 +44,7 @@ class UserStore {
                 return user;
             }
             catch (error) {
-                throw new Error('Query Failed' + error);
+                throw new Error('Query Failed ' + error);
             }
         });
     }
@@ -60,7 +60,7 @@ class UserStore {
                 return user;
             }
             catch (error) {
-                throw new Error('Query Failed' + error);
+                throw new Error('Query Failed ' + error);
             }
         });
     }
@@ -75,7 +75,7 @@ class UserStore {
                 return user;
             }
             catch (error) {
-                throw new Error('Query Failed' + error);
+                throw new Error('Query Failed ' + error);
             }
         });
     }
@@ -94,7 +94,7 @@ class UserStore {
                 }
             }
             catch (error) {
-                throw new Error('Query Failed' + error);
+                throw new Error('Query Failed ' + error);
             }
         });
     }

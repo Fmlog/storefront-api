@@ -13,7 +13,7 @@ const order_1 = require("../models/order");
 const authentication_1 = require("./authentication");
 const store = new order_1.OrderStore();
 function orderRoutes(app) {
-    app.get('/orders', index);
+    app.get('/orders', authentication_1.verifyToken, index);
     app.get('/order/:id', authentication_1.verifyToken, show);
     app.post('/orders', authentication_1.verifyToken, create);
     app.post('/order/:id', authentication_1.verifyToken, addProduct);
@@ -28,7 +28,7 @@ function show(req, res) {
             res.json(order);
         }
         catch (error) {
-            res.status(400).json(error);
+            res.status(400).json({ error: 'Something went wrong ' + error });
         }
     });
 }
@@ -39,7 +39,7 @@ function index(req, res) {
             res.json(orders);
         }
         catch (error) {
-            res.status(400).json(error);
+            res.status(400).json({ error: 'Something went wrong ' + error });
         }
     });
 }
@@ -54,7 +54,7 @@ function create(req, res) {
             res.json(result);
         }
         catch (error) {
-            res.status(400).json(error);
+            res.status(400).json({ error: 'Something went wrong ' + error });
         }
     });
 }
@@ -66,7 +66,7 @@ function remove(req, res) {
             res.json(order);
         }
         catch (error) {
-            res.status(400).json(error);
+            res.status(400).json({ error: 'Something went wrong ' + error });
         }
     });
 }
@@ -77,7 +77,7 @@ function addProduct(req, res) {
             res.json(result);
         }
         catch (error) {
-            res.status(400).json(error);
+            res.status(400).json({ error: 'Something went wrong ' + error });
         }
     });
 }

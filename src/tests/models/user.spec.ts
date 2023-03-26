@@ -1,5 +1,7 @@
 import { User, UserStore } from '../../models/user';
+
 const store = new UserStore();
+
 describe('User Model', function () {
   beforeAll(async function () {
     const u: User = {
@@ -11,8 +13,10 @@ describe('User Model', function () {
   });
 
   afterAll(async function () {
+    await store.delete(2)
     await store.delete(3);
   });
+
   it('Return an index of users', async function () {
     const users = await store.index();
     expect([
@@ -43,6 +47,7 @@ describe('User Model', function () {
       lastname: user.lastname,
     }).toEqual({ id: 2, firstname: 'testing', lastname: 'tester' });
   });
+  
   it('Creates new user', async function () {
     const u: User = {
       firstname: 'test',

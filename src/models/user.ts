@@ -22,7 +22,7 @@ export class UserStore {
       const users = res.rows;
       return users;
     } catch (error) {
-      throw new Error('Query Failed' + error);
+      throw new Error('Query Failed ' + error);
     }
   }
 
@@ -36,7 +36,7 @@ export class UserStore {
       const user = res.rows[0];
       return user;
     } catch (error) {
-      throw new Error('Query Failed' + error);
+      throw new Error('Query Failed ' + error);
     }
   }
 
@@ -55,7 +55,7 @@ export class UserStore {
       const user = res.rows[0];
       return user;
     } catch (error) {
-      throw new Error('Query Failed' + error);
+      throw new Error('Query Failed ' + error);
     }
   }
 
@@ -69,7 +69,7 @@ export class UserStore {
       const user = res.rows[0];
       return user;
     } catch (error) {
-      throw new Error('Query Failed' + error);
+      throw new Error('Query Failed ' + error);
     }
   }
 
@@ -87,7 +87,7 @@ export class UserStore {
         return null;
       }
     } catch (error) {
-      throw new Error('Query Failed' + error);
+      throw new Error('Query Failed ' + error);
     }
   }
 }
