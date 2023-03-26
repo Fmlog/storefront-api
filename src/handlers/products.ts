@@ -1,6 +1,6 @@
 import { Product, ProductStore } from '../models/product';
 import { Response, Request, Application } from 'express';
-import { verifyToken } from './authentication';
+import { verifyToken } from '../middleware/authentication';
 
 const store = new ProductStore();
 

@@ -1,7 +1,7 @@
 import { User, UserStore } from '../models/user';
 import { Application, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import { verifyToken } from './authentication';
+import { verifyToken } from '../middleware/authentication';
 
 const SECRET = process.env.TOKEN_SECRET as string;
 const store = new UserStore();

@@ -1,6 +1,6 @@
 import { DashboardStore } from '../services/dashboard';
 import { Request, Response, Application } from 'express';
-import { verifyToken } from './authentication';
+import { verifyToken } from '../middleware/authentication';
 
 const store = new DashboardStore();
 
