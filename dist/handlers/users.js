@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const user_1 = require("../models/user");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const authentication_1 = require("./authentication");
+const authentication_1 = require("../middleware/authentication");
 const SECRET = process.env.TOKEN_SECRET;
 const store = new user_1.UserStore();
 function userRoutestsc(app) {

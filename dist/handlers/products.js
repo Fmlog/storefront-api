@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const product_1 = require("../models/product");
-const authentication_1 = require("./authentication");
+const authentication_1 = require("../middleware/authentication");
 const store = new product_1.ProductStore();
 function productRoutes(app) {
     app.get('/products', index);

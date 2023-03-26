@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const dashboard_1 = require("../services/dashboard");
-const authentication_1 = require("./authentication");
+const authentication_1 = require("../middleware/authentication");
 const store = new dashboard_1.DashboardStore();
 function dashboardRoutes(app) {
     app.get('/products/:category', productsByCat);
