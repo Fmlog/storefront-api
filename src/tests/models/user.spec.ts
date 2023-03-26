@@ -13,8 +13,8 @@ describe('User Model', function () {
   });
 
   afterAll(async function () {
-    await store.delete(2)
-    await store.delete(3);
+    await store.delete(6)
+    await store.delete(7);
   });
 
   it('Return an index of users', async function () {
@@ -25,27 +25,27 @@ describe('User Model', function () {
         firstname: users[0].firstname,
         lastname: users[0].lastname,
       },
-    ]).toEqual([{ id: 2, firstname: 'testing', lastname: 'tester' }]);
+    ]).toEqual([{ id: 6, firstname: 'testing', lastname: 'tester' }]);
   });
 
   it('Returns user with given id', async function () {
-    const user = await store.show(2);
+    const user = await store.show(6);
     expect([
       {
         id: user.id,
         firstname: user.firstname,
         lastname: user.lastname,
       },
-    ]).toEqual([{ id: 2, firstname: 'testing', lastname: 'tester' }]);
+    ]).toEqual([{ id: 6, firstname: 'testing', lastname: 'tester' }]);
   });
 
   it('Deletes user with given id', async function () {
-    const user = await store.delete(2);
+    const user = await store.delete(6);
     expect({
       id: user.id,
       firstname: user.firstname,
       lastname: user.lastname,
-    }).toEqual({ id: 2, firstname: 'testing', lastname: 'tester' });
+    }).toEqual({ id: 6, firstname: 'testing', lastname: 'tester' });
   });
   
   it('Creates new user', async function () {
@@ -59,6 +59,6 @@ describe('User Model', function () {
       id: user.id,
       firstname: user.firstname,
       lastname: user.lastname,
-    }).toEqual({ id: 3, firstname: 'test', lastname: 'tester' });
+    }).toEqual({ id: 7, firstname: 'test', lastname: 'tester' });
   });
 });

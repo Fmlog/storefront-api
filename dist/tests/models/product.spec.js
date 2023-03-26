@@ -24,22 +24,22 @@ describe('Product Model', function () {
     });
     afterAll(function () {
         return __awaiter(this, void 0, void 0, function* () {
-            yield store.delete(2);
+            yield store.delete(4);
         });
     });
     it('Return all products', function () {
         return __awaiter(this, void 0, void 0, function* () {
             const products = yield store.index();
             expect(products).toEqual([
-                { id: 2, name: 'Iphone 14 pro', price: 1200, category: 'mobile phones' },
+                { id: 4, name: 'Iphone 14 pro', price: 1200, category: 'mobile phones' },
             ]);
         });
     });
     it('Return product with given id', function () {
         return __awaiter(this, void 0, void 0, function* () {
-            const product = yield store.show(2);
+            const product = yield store.show(4);
             expect(product).toEqual({
-                id: 2,
+                id: 4,
                 name: 'Iphone 14 pro',
                 price: 1200,
                 category: 'mobile phones',
@@ -48,9 +48,9 @@ describe('Product Model', function () {
     });
     it('Deletes product with given id', function () {
         return __awaiter(this, void 0, void 0, function* () {
-            const product = yield store.delete(2);
+            const product = yield store.delete(4);
             expect(product).toEqual({
-                id: 2,
+                id: 4,
                 name: 'Iphone 14 pro',
                 price: 1200,
                 category: 'mobile phones',
@@ -66,7 +66,7 @@ describe('Product Model', function () {
             };
             const product = yield store.create(p);
             expect(product).toEqual({
-                id: 3,
+                id: 5,
                 name: 'Samsung S23 Ultra',
                 price: 1300,
                 category: 'mobile phone',

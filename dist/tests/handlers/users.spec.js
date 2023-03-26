@@ -14,8 +14,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const supertest_1 = __importDefault(require("supertest"));
 const server_1 = __importDefault(require("../../server"));
+const user_1 = require("../../models/user");
 const request = (0, supertest_1.default)(server_1.default);
 describe('User Routes', function () {
+    const userStore = new user_1.UserStore();
     beforeAll(function () {
         return __awaiter(this, void 0, void 0, function* () {
             const response = yield request.post('/users').send({
@@ -24,6 +26,11 @@ describe('User Routes', function () {
                 password_digest: 'password123',
             });
             process.env.TEST_TOKEN = response.body.token;
+        });
+    });
+    afterAll(function () {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield userStore.delete(4);
         });
     });
     describe('GET /users', function () {
@@ -63,9 +70,30 @@ describe('User Routes', function () {
                 }).toEqual({ id: 3, firstname: 'femi', lastname: 'alogba' });
             });
         });
-        it('Returns a 401 status for unauthorized request', function () {
+        it('Returns 401 status for unauthorized request', function () {
             return __awaiter(this, void 0, void 0, function* () {
                 const response = yield request.get('/user/3');
+                expect(response.statusCode).toBe(401);
+            });
+        });
+    });
+    describe('DELETE /user/:id', function () {
+        it('Returns deleted user as a json', function () {
+            return __awaiter(this, void 0, void 0, function* () {
+                const response = yield request
+                    .delete('/user/3')
+                    .set('Authorization', `Bearer ${process.env.TEST_TOKEN}`);
+                const user = response.body;
+                expect({
+                    id: user.id,
+                    firstname: user.firstname,
+                    lastname: user.lastname,
+                }).toEqual({ id: 3, firstname: 'femi', lastname: 'alogba' });
+            });
+        });
+        it('Returns 401 status for unauthorized delete', function () {
+            return __awaiter(this, void 0, void 0, function* () {
+                const response = yield request.delete('/user/3');
                 expect(response.statusCode).toBe(401);
             });
         });

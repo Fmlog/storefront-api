@@ -24,8 +24,8 @@ describe('User Model', function () {
     });
     afterAll(function () {
         return __awaiter(this, void 0, void 0, function* () {
-            yield store.delete(2);
-            yield store.delete(3);
+            yield store.delete(6);
+            yield store.delete(7);
         });
     });
     it('Return an index of users', function () {
@@ -37,29 +37,29 @@ describe('User Model', function () {
                     firstname: users[0].firstname,
                     lastname: users[0].lastname,
                 },
-            ]).toEqual([{ id: 2, firstname: 'testing', lastname: 'tester' }]);
+            ]).toEqual([{ id: 6, firstname: 'testing', lastname: 'tester' }]);
         });
     });
     it('Returns user with given id', function () {
         return __awaiter(this, void 0, void 0, function* () {
-            const user = yield store.show(2);
+            const user = yield store.show(6);
             expect([
                 {
                     id: user.id,
                     firstname: user.firstname,
                     lastname: user.lastname,
                 },
-            ]).toEqual([{ id: 2, firstname: 'testing', lastname: 'tester' }]);
+            ]).toEqual([{ id: 6, firstname: 'testing', lastname: 'tester' }]);
         });
     });
     it('Deletes user with given id', function () {
         return __awaiter(this, void 0, void 0, function* () {
-            const user = yield store.delete(2);
+            const user = yield store.delete(6);
             expect({
                 id: user.id,
                 firstname: user.firstname,
                 lastname: user.lastname,
-            }).toEqual({ id: 2, firstname: 'testing', lastname: 'tester' });
+            }).toEqual({ id: 6, firstname: 'testing', lastname: 'tester' });
         });
     });
     it('Creates new user', function () {
@@ -74,7 +74,7 @@ describe('User Model', function () {
                 id: user.id,
                 firstname: user.firstname,
                 lastname: user.lastname,
-            }).toEqual({ id: 3, firstname: 'test', lastname: 'tester' });
+            }).toEqual({ id: 7, firstname: 'test', lastname: 'tester' });
         });
     });
 });
