@@ -1,7 +1,12 @@
 # STOREFRONT_API
+An API for a [store website](https://github.com/Fmlog/angular-storeproject).  
+Users are able to browse an index of all products, see the specifics of a single product, and add products to an order that they can view in a cart page.
+It is built with the following:
+* Postgres for the database
+* Node/Express for the application logic.  
 
 ## DATABASE SETUP
-* Login to postgres user on your terminal 
+* Login to postgres user on your terminal:
 > sudo -u postgres psql
 
 * Create  `full_stack_user` using the command below:
